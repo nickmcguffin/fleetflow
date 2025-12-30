@@ -7,9 +7,9 @@ async def main():
     await transport.connect()
 
     devices = [
-        SimulatedDevice("SAT-01", transport),
-        SimulatedDevice("SAT-02", transport),
-        SimulatedDevice("SAT-03", transport)
+        SimulatedDevice("ALPHA-01", transport),
+        SimulatedDevice("BRAVO-02", transport),
+        SimulatedDevice("CHARLIE-03", transport)
     ]
 
     tasks = [asyncio.create_task(device.run()) for device in devices]
