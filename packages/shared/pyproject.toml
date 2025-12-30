@@ -8,3 +8,8 @@ version="0.1.0"
 dependencies = [
     "pydantic>=2.0.0"
 ]
+
+[project.optional-dependencies]
+dev = [
+    "pydantic-to-typescript2"
+]
