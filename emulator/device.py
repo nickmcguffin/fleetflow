@@ -74,7 +74,7 @@ class SimulatedDevice:
         """
         self.is_running = True
         asyncio.create_task(self._simulate_orbit())
-        print(f" Simulated device {self.device_id} has started.")
+        print(f"Simulated device {self.device_id} has started.")
 
         try:
             while self.is_running:
