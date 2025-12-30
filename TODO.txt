@@ -1,0 +1,18 @@
+README Updates:
+How to spin up app using: 
+python venv's and uvicorn for backend
+python venv and main.py for emulator
+npm run dev for frontend (eventually npm run build)
+Eventually will do this all using docker compose up and spawning heaps of containers like a mad dog.
+
+Discuss workflow: JSON Contract -> Emulated Devices -> Backend -> UI Connection -> UI Commands -> Backend -> Emulated Devices 
+Discuss architecture -> Backend creates a websocket, all simulated IoT devices send messages across that, backend serves those to connected clients to display in a UI
+Discuss scalability - Websocket allows for heaps of connections - can just spawn new devices (or plug new ones in IRL) and connect them to the pipeline while following
+the JSON contract and it will "just work" - emulated stuff shouldn't have to be touched.
+
+TODOS: 
+Update UI to make it fancy pants
+Add commands from UI -> Backend -> Emulated device
+Make it possible to spawn new Emulated devices on the fly
+Add a database to backend to store and query historical data.
+Search for other TODO's throughout app... I've added a few that I want to touch on before deploying. Some might not be worth
