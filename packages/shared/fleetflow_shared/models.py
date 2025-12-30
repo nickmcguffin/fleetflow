@@ -1,19 +1,20 @@
 from enum import Enum
 from pydantic import BaseModel, Field
 from datetime import datetime
-from uuid import UUID, uuid64
+from uuid import UUID, uuid4
 
 
 class DeviceStatus(str, Enum):
     ONLINE = "online"
     WARNING = "warning"
+    CRITICAL = "critical"
     FAULT = "fault"
     OFFLINE = "offline"
 
 
 class TelemetryPacket(BaseModel):
     device_id: str
-    msg_id: UUID = Field(default_factory=uuid64)
+    msg_id: UUID = Field(default_factory=uuid4)
 
     status: DeviceStatus = DeviceStatus.ONLINE
 
