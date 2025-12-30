@@ -1,6 +1,6 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.middleware.cors import CORSMiddleware
 from fleetflow_shared import TelemetryPacket
+from .services.connection_manager import connection_manager
 
 app = FastAPI(title="FleetFlow Mission Control")
 
@@ -24,7 +24,21 @@ async def telemetry_stream(websocket: WebSocket):
                 f"Received telemetry packet from device: {packet.device_id} at {packet.timestamp}:"
                 f"Temperature: {packet.temp}, Battery: {packet.battery}%"
             )
+            await connection_manager.broadcast(packet.model_dump(mode='json'))
+            print(f"Broadcasting to {len(connection_manager.active_connections)} client/s")
     except WebSocketDisconnect:
         print("Telemetry stream websocket disconnected.")
     except Exception as e:
         print(f"Error in telemetry stream: {e}")
+        
+@app.websocket("/ws/client")
+async def client_endpoint(websocket: WebSocket):
+    """
+    WebSocket endpoint for clients to receive telemetry data
+    """
+    await connection_manager.connect(websocket)
+    try:
+        while True:
+            await websocket.receive_text() 
+    except WebSocketDisconnect:
+        connection_manager.disconnect(websocket)
