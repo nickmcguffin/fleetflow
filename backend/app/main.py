@@ -1,6 +1,6 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fleetflow_shared import TelemetryPacket
-from .services.connection_manager import connection_manager
+from services.connection_manager import connection_manager
 
 app = FastAPI(title="FleetFlow Mission Control")
 
