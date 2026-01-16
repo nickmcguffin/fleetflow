@@ -1,0 +1,17 @@
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.3);
+    }
+}
+
+.pulse-dot::before {
+    animation: pulse 2s ease-in-out infinite;
+}

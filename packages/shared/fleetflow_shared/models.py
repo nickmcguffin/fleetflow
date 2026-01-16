@@ -19,6 +19,9 @@ class TelemetryPacket(BaseModel):
     status: DeviceStatus = DeviceStatus.ONLINE
 
     timestamp: datetime = Field(default_factory=datetime.utcnow)
+
+    # TODO: add device information fields to a message dict
+    # end goal is to let the message store status/config/etc. information
     temp: float
     battery: int = Field(ge=0, le=100)
 
