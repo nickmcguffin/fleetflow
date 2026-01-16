@@ -39,6 +39,6 @@ async def client_endpoint(websocket: WebSocket):
     await connection_manager.connect(websocket)
     try:
         while True:
-            await websocket.receive_text() 
+            await websocket.receive_text()
     except WebSocketDisconnect:
         connection_manager.disconnect(websocket)
