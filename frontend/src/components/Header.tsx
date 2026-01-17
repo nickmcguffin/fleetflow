@@ -2,6 +2,7 @@ import { Group, Text, Box, Badge, Container } from '@mantine/core';
 import { useTelemetry } from '../context/TelemetryContext';
 import './Header.css';
 
+// TODO: Add Dark Mode toggle
 export function Header() {
     const { isConnected } = useTelemetry();
 

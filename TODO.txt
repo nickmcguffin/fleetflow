@@ -4,15 +4,58 @@ python venv's and uvicorn for backend
 python venv and main.py for emulator
 npm run dev for frontend (eventually npm run build)
 Eventually will do this all using docker compose up and spawning heaps of containers like a mad dog.
-
 Discuss workflow: JSON Contract -> Emulated Devices -> Backend -> UI Connection -> UI Commands -> Backend -> Emulated Devices 
 Discuss architecture -> Backend creates a websocket, all simulated IoT devices send messages across that, backend serves those to connected clients to display in a UI
 Discuss scalability - Websocket allows for heaps of connections - can just spawn new devices (or plug new ones in IRL) and connect them to the pipeline while following
 the JSON contract and it will "just work" - emulated stuff shouldn't have to be touched.
 
-TODOS: 
+TODOS:
 Update UI to make it fancy pants
+- Device Cards
+- Alerts Cards
+- Alert management
+- Second page - configuration management/device specific monitoring?
+- modal popups when device or alerts cards are clicked.
+- Historical data (charts/filterable tables/logs)
+--- connected over time
+--- alerts over time
+--- logs
+
+Unit testing
+---frontend
+---backend 
+---emulator 
+---packages
+
+Github pipeline
+--- run unit tests on commit push to remote
+--- deploy? 
+
+pre-commit hooks
+- run linting before commit, raise any errors (wouldn't mind keeping an example in a private repo for later use... seem to rewrite these all the time)
+- run project specific commands pre-commit (i.e generating server type files and converting them to TypeScript).
+
 Add commands from UI -> Backend -> Emulated device
-Make it possible to spawn new Emulated devices on the fly
-Add a database to backend to store and query historical data.
-Search for other TODO's throughout app... I've added a few that I want to touch on before deploying. Some might not be worth
+
+Emulator
+- Configurable fields
+- Location?
+- DeviceType (could link this to icons in the UI for specific types, Lucide React Icons has heaps of device ones.)
+- Make specific devices display different data.
+
+Backend
+- Add a database to backend to store and query historical data.
+- more websocket endpoints
+- ping/pong websocket ?
+- data wrangling for different devices
+
+
+Make it possible to spawn and delete new Emulated devices on the fly
+Introducing chaos to the system
+- devices dropping off
+- increase simulated network jitter
+
+
+
+
+Note: Search for other TODO's throughout app... I've added a few that I want to touch on before deploying. Some might not be worth
