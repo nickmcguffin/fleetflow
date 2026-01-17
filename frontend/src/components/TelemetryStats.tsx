@@ -8,15 +8,15 @@ export function TelemetryStats() {
 
     const totalCount = devices.length;
 
-    // TODO: Make active devices status badge.
-    const activeCount = devices.filter(d => d.status === 'online').length;
-
+    const offlineDevices = devices.filter(d => d.status === 'offline');
+    const hasOffline = offlineDevices.length > 0;
     // TODO: Make fault card derive state and icon from highest level warning,
-    const faultCount = devices.filter(d => d.status && ["warning", "critical", "fault", "offline"].includes(d.status)).length;
+    const faultCount = devices.filter(d => d.status && ["warning", "critical", "fault", "offline"].includes(d.status));
+    const hasFaults = faultCount.length > 0;
 
     return (
         <SimpleGrid 
-            cols={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }} 
+            cols={{ base: 1, sm: 2, md: 3, lg: 4 }} 
             spacing="md"
         >
             <StatsCard
@@ -25,34 +25,31 @@ export function TelemetryStats() {
                 description={isConnected ? "Link Stable" : "Retrying..."}
                 descriptionColor={isConnected ? 'green' : 'red'}
                 icon={isConnected ? Wifi : WifiOff}
-                iconColor={isConnected ? 'green' : 'red'}
+                iconColor="blue"
             />
-
-
-            {/* TODO: Colours/Icons need to change for this one... not sure I like this total devices being the way it is. */}
             <StatsCard
                 title="Total Devices"
                 value={totalCount}
                 description="Live fleet size"
                 icon={Cpu}
-                iconColor="green"
+                iconColor="blue"
+            />
+            <StatsCard
+                title="Offline Devices"
+                value={offlineDevices.length}
+                description={hasOffline ? "Attention required." : "All systems nominal"}
+                descriptionColor={hasOffline ? 'red' : 'dimmed'}
+                icon={hasOffline ? MonitorDown : MonitorCheck}
+                iconColor="blue"
             />
 
             <StatsCard
-                title="Active Devices"
-                value={activeCount}
-                description={activeCount <= totalCount ? "All systems nominal" : "Attention required."}
-                icon={activeCount <= totalCount ? MonitorCheck : MonitorDown}
-                iconColor={activeCount <= totalCount ? "green" : "yellow"}
-            />
-
-            <StatsCard
-                title="Active Alerts"
-                value={faultCount}
-                description={faultCount > 0 ? "Requires attention" : "All systems nominal"}
-                descriptionColor={faultCount > 0 ? 'red' : 'dimmed'}
-                icon={faultCount > 0 ? AlertTriangle : CheckCircle2}
-                iconColor={faultCount > 0 ? 'red' : 'green'}
+                title="Warnings & Faults"
+                value={faultCount.length}
+                description={hasFaults ? "Requires attention" : "All systems nominal"}
+                descriptionColor={hasFaults ? 'red' : 'dimmed'}
+                icon={hasFaults ? AlertTriangle : CheckCircle2}
+                iconColor="blue"
             />
         </SimpleGrid>
     );
